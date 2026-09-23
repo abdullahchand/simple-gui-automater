@@ -73,7 +73,7 @@ def _run_select(index, act: A.SelectAction):
 _RUNNERS = {A.ClickAction: _run_click, A.TypeAction: _run_type, A.SelectAction: _run_select}
 
 
-def run_sequence(steps, delay_between=0.4, on_step=None):
+def run_sequence(steps, on_step=None):
     """Run all `steps` in order. Raises PlaybackError on first failure.
 
     on_step(index, action): optional callback fired before each step runs.
@@ -82,4 +82,4 @@ def run_sequence(steps, delay_between=0.4, on_step=None):
         if on_step:
             on_step(i, act)
         _RUNNERS[type(act)](i, act)
-        time.sleep(delay_between)
+        time.sleep(act.wait_after)

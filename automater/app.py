@@ -182,6 +182,7 @@ class App:
             [
                 {"key": "click_type", "label": "Click type", "kind": "choice",
                  "options": ["left", "double", "right"], "default": "left"},
+                {"key": "wait_after", "label": "Wait after, seconds", "kind": "entry", "default": "0.4"},
                 {"key": "label", "label": "Label (optional)", "kind": "entry", "default": ""},
             ],
         )
@@ -192,7 +193,7 @@ class App:
         self.project.save_image(path, img)
         step = A.ClickAction(
             template_path=path, recorded_bbox=bbox, click_type=values["click_type"],
-            label=values["label"],
+            wait_after=float(values["wait_after"] or 0.4), label=values["label"],
         )
         self.project.steps.append(step)
         self._refresh_list()
@@ -214,6 +215,7 @@ class App:
                  "kind": "entry", "default": ""},
                 {"key": "date_format", "label": "Date format (strftime)", "kind": "entry",
                  "default": "%Y-%m-%d"},
+                {"key": "wait_after", "label": "Wait after, seconds", "kind": "entry", "default": "0.4"},
                 {"key": "label", "label": "Label (optional)", "kind": "entry", "default": ""},
             ],
         )
@@ -224,7 +226,8 @@ class App:
         self.project.save_image(path, img)
         step = A.TypeAction(
             template_path=path, text=values["text"], recorded_bbox=bbox,
-            date_format=values["date_format"], label=values["label"],
+            date_format=values["date_format"], wait_after=float(values["wait_after"] or 0.4),
+            label=values["label"],
         )
         self.project.steps.append(step)
         self._refresh_list()
@@ -260,6 +263,7 @@ class App:
                 {"key": "date_format", "label": "Date/text format (strftime, e.g. %d for day-number grids)",
                  "kind": "entry", "default": "%d"},
                 {"key": "open_delay", "label": "Delay after opening, seconds", "kind": "entry", "default": "0.6"},
+                {"key": "wait_after", "label": "Wait after, seconds", "kind": "entry", "default": "0.4"},
                 {"key": "label", "label": "Label (optional)", "kind": "entry", "default": ""},
             ],
         )
@@ -275,6 +279,7 @@ class App:
             control_bbox=bbox1,
             date_format=values["date_format"],
             open_delay=float(values["open_delay"] or 0.6),
+            wait_after=float(values["wait_after"] or 0.4),
             label=values["label"],
         )
         self.project.steps.append(step)

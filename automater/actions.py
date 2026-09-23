@@ -9,6 +9,7 @@ class ClickAction:
     click_type: str = "left"  # left | double | right
     threshold: float = 0.85
     search_margin: int = 250
+    wait_after: float = 0.4  # seconds to pause after this step, before the next one
     label: str = ""
     type: str = field(default="click", init=False)
 
@@ -21,6 +22,7 @@ class TypeAction:
     date_format: str = "%Y-%m-%d"
     threshold: float = 0.85
     search_margin: int = 250
+    wait_after: float = 0.4  # seconds to pause after this step, before the next one
     label: str = ""
     type: str = field(default="type", init=False)
 
@@ -35,6 +37,7 @@ class SelectAction:
     threshold: float = 0.85
     search_margin: int = 250
     open_delay: float = 0.6
+    wait_after: float = 0.4  # seconds to pause after this step, before the next one
     label: str = ""
     type: str = field(default="select", init=False)
 
