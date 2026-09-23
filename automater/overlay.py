@@ -59,10 +59,14 @@ def select_region(root, prompt: str = "Drag to select a region  (Esc to cancel)"
         w, h = abs(x2 - x1), abs(y2 - y1)
         if w > 3 and h > 3:
             result["bbox"] = (x, y, w, h)
+        top.withdraw()  # unmap immediately, ahead of destroy's teardown/animation
+        top.update_idletasks()
         top.destroy()
 
     def on_escape(_event):
         result["bbox"] = None
+        top.withdraw()
+        top.update_idletasks()
         top.destroy()
 
     canvas.bind("<ButtonPress-1>", on_press)

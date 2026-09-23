@@ -8,6 +8,7 @@ from . import capture, overlay, player
 from .project import Project
 
 RESTORE_DELAY_MS = 350  # time to let the window manager actually hide our window
+CAPTURE_SETTLE_MS = 300  # time for the overlay's close animation/compositor to clear before we screenshot
 
 
 def ask_form(parent, title, fields):
@@ -154,6 +155,12 @@ class App:
         self.root.update()
         time.sleep(RESTORE_DELAY_MS / 1000)
         bbox = overlay.select_region(self.root, prompt)
+        if bbox is not None:
+            # The overlay's own close (possibly animated by the WM/compositor)
+            # can still be visible for a moment - without this, a screenshot
+            # taken right away captures the dimmed overlay itself (solid gray)
+            # instead of the real screen underneath.
+            time.sleep(CAPTURE_SETTLE_MS / 1000)
         return bbox
 
     def _restore(self):
