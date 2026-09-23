@@ -1,0 +1,6 @@
+opencv-python-headless
+mss
+pyautogui
+python3-xlib
+pytesseract
+Pillow

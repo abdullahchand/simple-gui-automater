@@ -1,0 +1,2 @@
+[console_scripts]
+gui-automater = automater.app:main

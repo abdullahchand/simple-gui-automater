@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "simple-gui-automater"
+version = "0.1.0"
+description = "Record/playback GUI automation using template matching and OCR instead of raw coordinates"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "opencv-python-headless",
+    "mss",
+    "pyautogui",
+    "python3-xlib",
+    "pytesseract",
+    "Pillow",
+]
+
+[project.scripts]
+gui-automater = "automater.app:main"
+
+[tool.setuptools]
+packages = ["automater"]
