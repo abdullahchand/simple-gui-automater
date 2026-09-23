@@ -183,7 +183,10 @@ class App:
 
         path = self.project.new_image_path("click")
         self.project.save_image(path, img)
-        step = A.ClickAction(template_path=path, click_type=values["click_type"], label=values["label"])
+        step = A.ClickAction(
+            template_path=path, recorded_bbox=bbox, click_type=values["click_type"],
+            label=values["label"],
+        )
         self.project.steps.append(step)
         self._refresh_list()
 
@@ -213,8 +216,8 @@ class App:
         path = self.project.new_image_path("type")
         self.project.save_image(path, img)
         step = A.TypeAction(
-            template_path=path, text=values["text"], date_format=values["date_format"],
-            label=values["label"],
+            template_path=path, text=values["text"], recorded_bbox=bbox,
+            date_format=values["date_format"], label=values["label"],
         )
         self.project.steps.append(step)
         self._refresh_list()
@@ -262,6 +265,7 @@ class App:
             control_template_path=path,
             search_offset=search_offset,
             value=values["value"],
+            control_bbox=bbox1,
             date_format=values["date_format"],
             open_delay=float(values["open_delay"] or 0.6),
             label=values["label"],

@@ -29,7 +29,7 @@ def _click_at(x, y, click_type):
 
 def _run_click(index, act: A.ClickAction):
     template = cv2.imread(act.template_path)
-    m = matcher.find_template(template, threshold=act.threshold)
+    m = matcher.find_template_near(template, act.recorded_bbox, act.threshold, act.search_margin)
     if m is None:
         raise PlaybackError(index, act, "template not found on screen")
     x, y = m.center
@@ -38,7 +38,7 @@ def _run_click(index, act: A.ClickAction):
 
 def _run_type(index, act: A.TypeAction):
     template = cv2.imread(act.template_path)
-    m = matcher.find_template(template, threshold=act.threshold)
+    m = matcher.find_template_near(template, act.recorded_bbox, act.threshold, act.search_margin)
     if m is None:
         raise PlaybackError(index, act, "template not found on screen")
     x, y = m.center
@@ -49,7 +49,7 @@ def _run_type(index, act: A.TypeAction):
 
 def _run_select(index, act: A.SelectAction):
     control_tmpl = cv2.imread(act.control_template_path)
-    m = matcher.find_template(control_tmpl, threshold=act.threshold)
+    m = matcher.find_template_near(control_tmpl, act.control_bbox, act.threshold, act.search_margin)
     if m is None:
         raise PlaybackError(index, act, "control template not found on screen")
     cx, cy = m.center
